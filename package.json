@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "start": "sh bootstrap.sh",
+    "build": "directus bootstrap",
     "dev": "directus start"
   },
   "dependencies": {
-    "directus": "^10.13.0"
+    "directus": "10.8.3"
   },
   "engines": {
     "node": ">=18"

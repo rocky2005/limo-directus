@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_22", "python3", "pkg-config", "make", "gcc"]
+
+[phases.install]
+cmds = ["npm install --ignore-scripts"]
+
+[phases.build]
+cmds = ["npx directus bootstrap || true"]
+
+[start]
+cmd = "sh bootstrap.sh"
