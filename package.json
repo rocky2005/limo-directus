@@ -2,14 +2,12 @@
   "name": "limo-directus",
   "version": "1.0.0",
   "scripts": {
-    "start": "sh bootstrap.sh",
-    "build": "directus bootstrap",
-    "dev": "directus start"
+    "start": "sh bootstrap.sh"
   },
   "dependencies": {
-    "directus": "10.8.3"
+    "directus": "11.0.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
