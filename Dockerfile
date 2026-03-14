@@ -1,9 +1,5 @@
 FROM directus/directus:11.0.2
 
-USER root
-RUN corepack enable && corepack prepare pnpm@latest --activate
-USER node
-
 WORKDIR /directus
 
 COPY --chown=node:node snapshots/ ./snapshots/
