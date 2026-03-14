@@ -18,11 +18,12 @@
     },
     {
       "collection": "bookings",
-      "meta": { "icon": "event_seat", "display_template": "{{service_type}} — {{pickup_datetime}}" },
+      "meta": { "icon": "event_seat", "display_template": "{{service_type}}" },
       "schema": { "name": "bookings" }
     }
   ],
   "fields": [
+    { "collection": "vehicles", "field": "id", "type": "integer", "schema": { "is_primary_key": true, "has_auto_increment": true, "is_nullable": false }, "meta": { "hidden": true, "readonly": true } },
     { "collection": "vehicles", "field": "name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
     { "collection": "vehicles", "field": "type", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Sedan","value":"sedan"},{"text":"Stretch Limo","value":"stretch_limo"},{"text":"SUV","value":"suv"},{"text":"Party Bus","value":"party_bus"},{"text":"Sprinter Van","value":"sprinter_van"}] } } },
     { "collection": "vehicles", "field": "capacity", "type": "integer", "meta": { "interface": "input" } },
@@ -34,6 +35,7 @@
     { "collection": "vehicles", "field": "license_plate", "type": "string", "meta": { "interface": "input" } },
     { "collection": "vehicles", "field": "status", "type": "string", "schema": { "default_value": "available" }, "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Available","value":"available"},{"text":"In Service","value":"in_service"},{"text":"Maintenance","value":"maintenance"}] } } },
 
+    { "collection": "customers", "field": "id", "type": "integer", "schema": { "is_primary_key": true, "has_auto_increment": true, "is_nullable": false }, "meta": { "hidden": true, "readonly": true } },
     { "collection": "customers", "field": "first_name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
     { "collection": "customers", "field": "last_name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
     { "collection": "customers", "field": "email", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
@@ -41,6 +43,7 @@
     { "collection": "customers", "field": "company", "type": "string", "meta": { "interface": "input" } },
     { "collection": "customers", "field": "notes", "type": "text", "meta": { "interface": "input-multiline" } },
 
+    { "collection": "drivers", "field": "id", "type": "integer", "schema": { "is_primary_key": true, "has_auto_increment": true, "is_nullable": false }, "meta": { "hidden": true, "readonly": true } },
     { "collection": "drivers", "field": "first_name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
     { "collection": "drivers", "field": "last_name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
     { "collection": "drivers", "field": "email", "type": "string", "meta": { "interface": "input" } },
@@ -48,6 +51,7 @@
     { "collection": "drivers", "field": "license_number", "type": "string", "meta": { "interface": "input" } },
     { "collection": "drivers", "field": "status", "type": "string", "schema": { "default_value": "available" }, "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Available","value":"available"},{"text":"On Trip","value":"on_trip"},{"text":"Off Duty","value":"off_duty"}] } } },
 
+    { "collection": "bookings", "field": "id", "type": "integer", "schema": { "is_primary_key": true, "has_auto_increment": true, "is_nullable": false }, "meta": { "hidden": true, "readonly": true } },
     { "collection": "bookings", "field": "status", "type": "string", "schema": { "default_value": "pending" }, "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Pending","value":"pending"},{"text":"Confirmed","value":"confirmed"},{"text":"Assigned","value":"assigned"},{"text":"Completed","value":"completed"},{"text":"Cancelled","value":"cancelled"}] } } },
     { "collection": "bookings", "field": "service_type", "type": "string", "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Airport Transfer","value":"airport_transfer"},{"text":"Hourly","value":"hourly"},{"text":"Wedding","value":"wedding"},{"text":"Prom","value":"prom"},{"text":"Corporate","value":"corporate"},{"text":"Other","value":"other"}] } } },
     { "collection": "bookings", "field": "pickup_datetime", "type": "dateTime", "meta": { "interface": "datetime", "required": true } },
@@ -61,9 +65,9 @@
     { "collection": "bookings", "field": "payment_status", "type": "string", "schema": { "default_value": "unpaid" }, "meta": { "interface": "select-dropdown", "options": { "choices": [{"text":"Unpaid","value":"unpaid"},{"text":"Deposit Paid","value":"deposit_paid"},{"text":"Paid","value":"paid"},{"text":"Refunded","value":"refunded"}] } } },
     { "collection": "bookings", "field": "special_requests", "type": "text", "meta": { "interface": "input-multiline" } },
     { "collection": "bookings", "field": "internal_notes", "type": "text", "meta": { "interface": "input-multiline" } },
-    { "collection": "bookings", "field": "customer", "type": "integer", "schema": { "foreign_key_table": "customers", "foreign_key_column": "id" }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
-    { "collection": "bookings", "field": "vehicle", "type": "integer", "schema": { "foreign_key_table": "vehicles", "foreign_key_column": "id" }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
-    { "collection": "bookings", "field": "driver", "type": "integer", "schema": { "foreign_key_table": "drivers", "foreign_key_column": "id" }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } }
+    { "collection": "bookings", "field": "customer", "type": "integer", "schema": { "foreign_key_table": "customers", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
+    { "collection": "bookings", "field": "vehicle", "type": "integer", "schema": { "foreign_key_table": "vehicles", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
+    { "collection": "bookings", "field": "driver", "type": "integer", "schema": { "foreign_key_table": "drivers", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } }
   ],
   "relations": [
     { "collection": "bookings", "field": "customer", "related_collection": "customers" },
