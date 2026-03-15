@@ -20,6 +20,11 @@
       "collection": "bookings",
       "meta": { "icon": "event_seat", "display_template": "{{service_type}}" },
       "schema": { "name": "bookings" }
+    },
+    {
+      "collection": "contact_messages",
+      "meta": { "icon": "mail", "display_template": "{{name}} — {{subject}}" },
+      "schema": { "name": "contact_messages" }
     }
   ],
   "fields": [
@@ -67,7 +72,16 @@
     { "collection": "bookings", "field": "internal_notes", "type": "text", "meta": { "interface": "input-multiline" } },
     { "collection": "bookings", "field": "customer", "type": "integer", "schema": { "foreign_key_table": "customers", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
     { "collection": "bookings", "field": "vehicle", "type": "integer", "schema": { "foreign_key_table": "vehicles", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
-    { "collection": "bookings", "field": "driver", "type": "integer", "schema": { "foreign_key_table": "drivers", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } }
+    { "collection": "bookings", "field": "driver", "type": "integer", "schema": { "foreign_key_table": "drivers", "foreign_key_column": "id", "is_nullable": true }, "meta": { "interface": "select-dropdown-m2o", "special": ["m2o"] } },
+
+    { "collection": "contact_messages", "field": "id", "type": "integer", "schema": { "is_primary_key": true, "has_auto_increment": true, "is_nullable": false }, "meta": { "hidden": true, "readonly": true } },
+    { "collection": "contact_messages", "field": "name", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
+    { "collection": "contact_messages", "field": "email", "type": "string", "schema": { "is_nullable": false }, "meta": { "interface": "input", "required": true } },
+    { "collection": "contact_messages", "field": "phone", "type": "string", "meta": { "interface": "input" } },
+    { "collection": "contact_messages", "field": "subject", "type": "string", "meta": { "interface": "input" } },
+    { "collection": "contact_messages", "field": "service", "type": "string", "meta": { "interface": "input" } },
+    { "collection": "contact_messages", "field": "message", "type": "text", "schema": { "is_nullable": false }, "meta": { "interface": "input-multiline", "required": true } },
+    { "collection": "contact_messages", "field": "date_created", "type": "timestamp", "meta": { "readonly": true } }
   ],
   "relations": [
     { "collection": "bookings", "field": "customer", "related_collection": "customers" },
